@@ -9,12 +9,14 @@ workflows:
       events:
         - push
     scripts:
-      - name: Set up local.properties
-        script: | 
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
       - name: Build Android APK
-        script: | 
+        script: |
+          # Agar Jarvis folder exist karta hai, to uske andar jao
+          if [ -d "Jarvis" ]; then
+            cd Jarvis
+          fi
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
           gradle assembleDebug
     artifacts:
-      - app/build/outputs/apk/**/*.apk
+      - "**/build/outputs/apk/**/*.apk"
       
